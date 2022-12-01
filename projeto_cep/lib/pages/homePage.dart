@@ -83,21 +83,21 @@ class _HomePageState extends State<HomePage> {
     ViaCep viaCep = ViaCep();
 
     final cep = _searchCepController.text;
-
     final resultCep = await viaCep.fetchCep(cep: cep);
-    // Exibindo somente a localidade no terminal
 
     setState(() {
       _result = resultCep.toJson();
     });
-
     _searching(false);
   }
 
   Widget _buildResultForm() {
     return Container(
       padding: const EdgeInsets.only(top: 20.0),
-      child: Text(_result ?? ''),
+      child: Text(
+        _result ?? '',
+        style: const TextStyle(fontFamily: 'Times New Roman', fontSize: 15),
+      ),
     );
   }
 }
