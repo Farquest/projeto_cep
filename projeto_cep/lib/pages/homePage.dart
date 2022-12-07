@@ -1,5 +1,3 @@
-// ignore_for_file: file_names, library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 import 'package:projeto_cep/service/via_cep.dart';
 
@@ -12,7 +10,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _searchCepController = TextEditingController();
-  bool _loading = false;
   bool _enableField = true;
   String? _result;
 
@@ -26,12 +23,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Consultar CEP'),
+          title: const Text('VA3 - Consultar CEP via API'),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(10.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               _buildSearchCepTextField(),
               _buildSearchCepButton(),
@@ -46,7 +43,10 @@ class _HomePageState extends State<HomePage> {
       autofocus: true,
       keyboardType: TextInputType.number,
       textInputAction: TextInputAction.done,
-      decoration: const InputDecoration(labelText: 'Cep'),
+      decoration: const InputDecoration(
+          labelText: 'Cep: ',
+          hintText: '00000-000',
+          hintStyle: TextStyle(fontFamily: 'Arial', fontSize: 12)),
       controller: _searchCepController,
       enabled: _enableField,
     );
@@ -54,32 +54,16 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildSearchCepButton() {
     return Padding(
-      padding: const EdgeInsets.only(top: 20.0),
+      padding: const EdgeInsets.only(top: 12.0),
       child: ElevatedButton(
         onPressed: _searchCep,
-        child: _loading ? _circularLoading() : const Text('Consultar'),
+        child: const Text('Consultar',
+            style: TextStyle(fontFamily: 'Arial', fontSize: 16)),
       ),
     );
   }
 
-  void _searching(bool enable) {
-    setState(() {
-      _result = enable ? '' : _result;
-      _loading = enable;
-      _enableField = !enable;
-    });
-  }
-
-  Widget _circularLoading() {
-    return const SizedBox(
-      height: 15.0,
-      width: 15.0,
-      child: CircularProgressIndicator(),
-    );
-  }
-
   Future _searchCep() async {
-    _searching(true);
     ViaCep viaCep = ViaCep();
 
     final cep = _searchCepController.text;
@@ -88,16 +72,14 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _result = resultCep.toJson();
     });
-    _searching(false);
+    ;
   }
 
   Widget _buildResultForm() {
     return Container(
-      padding: const EdgeInsets.only(top: 20.0),
-      child: Text(
-        _result ?? '',
-        style: const TextStyle(fontFamily: 'Times New Roman', fontSize: 15),
-      ),
+      padding: const EdgeInsets.only(top: 30.0),
+      child: Text(_result ?? '',
+          style: const TextStyle(fontFamily: 'Arial', fontSize: 16)),
     );
   }
 }

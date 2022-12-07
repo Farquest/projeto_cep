@@ -9,10 +9,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Projeto CEP',
-      debugShowCheckedModeBanner: false,
+      title: 'VA3 - Programação e Design para WEB',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        brightness: Brightness.dark,
       ),
       home: const HomePage(),
     );

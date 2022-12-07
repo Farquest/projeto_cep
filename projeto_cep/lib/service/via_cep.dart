@@ -1,6 +1,4 @@
-// ignore_for_file: import_of_legacy_library_into_null_safe
-
-import 'package:projeto_cep/model/resul_cep.dart';
+import 'package:projeto_cep/model/result_cep.dart';
 import 'package:http/http.dart';
 
 class ViaCep {
